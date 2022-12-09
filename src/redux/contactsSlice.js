@@ -1,12 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts } from 'redux/operations';
-
-const contactData = [
-  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-];
+import { fetchContacts, addContact, deleteContact } from 'redux/operations';
 
 const initialState = {
   contacts: {
@@ -17,30 +10,16 @@ const initialState = {
   filter: '',
 };
 
-export const contactsSlice = createSlice({
+const contactsSlice = createSlice({
   name: 'contacts',
   initialState: initialState,
-  // reducers: {
-  //   addContact(state, action) {
-  //     const contact = action.payload;
-  //     if (
-  //       state.contacts.filter(
-  //         element => element.name.toLowerCase() === contact.name.toLowerCase()
-  //       ).length > 0
-  //     ) {
-  //       return Notiflix.Notify.warning(
-  //         `${contact.name} is already in contacts`
-  //       );
-  //     }
-  //     state.contacts = [...state.contacts, contact];
-  //   },
-  //   deleteContact(state, action) {
-  //     const id = action.payload;
-  //     state.contacts = state.contacts.filter(contact => contact.id !== id);
-  //   },
-  //   setFilter(state, action) {
-  //     state.filter = action.payload;
-  //   },
+
+  reducers: {
+    filterContact(state, action) {
+      state.filter = action.payload;
+      console.log(state.filter, action);
+    },
+  },
 
   extraReducers: builder => {
     builder
@@ -69,16 +48,15 @@ export const contactsSlice = createSlice({
         state.contacts.isLoading = false;
         state.contacts.error = action.payload;
       })
-      .addCase(deleteContact.pending, (state, action) => {
+      .addCase(deleteContact.pending, state => {
         state.contacts.isLoading = true;
         state.contacts.error = '';
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.contacts.isLoading = false;
         state.contacts.error = null;
-        const id = action.payload;
         state.contacts.items = state.contacts.items.filter(
-          contact => contact.id !== id
+          contact => contact.id !== action.payload
         );
       })
       .addCase(deleteContact.rejected, (state, action) => {
@@ -88,5 +66,5 @@ export const contactsSlice = createSlice({
   },
 });
 
-export const { addContact, deleteContact, setFilter } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
+export const { filterContact } = contactsSlice.actions;

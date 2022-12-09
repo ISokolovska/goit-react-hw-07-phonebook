@@ -1,21 +1,22 @@
+import Notiflix from 'notiflix';
 import React, { useState } from 'react';
-import { addContact } from '../../redux/contactsSlice/contactsSlice';
-import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/operations';
+import { getContacts } from 'redux/selectors';
 import { AddContactsFormContainer, AddContactsInput, Button } from './Styled';
 
 export const ContactsForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
   const handleChange = evt => {
     if (evt.target.name === 'name') {
       setName(evt.target.value);
     }
-    if (evt.target.name === 'number') {
-      setNumber(evt.target.value);
+    if (evt.target.name === 'phone') {
+      setPhone(evt.target.value);
     }
   };
 
@@ -23,27 +24,30 @@ export const ContactsForm = () => {
     evt.preventDefault();
     const contact = {
       name,
-      number,
-      id: nanoid(),
+      phone,
     };
+    if (
+      contacts.filter(
+        element => element.name.toLowerCase() === contact.name.toLowerCase()
+      ).length > 0
+    ) {
+      return Notiflix.Notify.warning(`${contact.name} is already in contacts`);
+    }
     dispatch(addContact(contact));
     reset();
   };
 
   const reset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
-
-  const nameInputId = nanoid();
 
   return (
     <AddContactsFormContainer onSubmit={handleSubmit}>
-      <label htmlFor={nameInputId}>Name</label>
+      <label>Name</label>
       <AddContactsInput
         type="text"
         name="name"
-        id={nameInputId}
         onChange={handleChange}
         value={name}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -51,12 +55,11 @@ export const ContactsForm = () => {
         required
       />
 
-      <label htmlFor="number">Number</label>
+      <label htmlFor="phone">Phone</label>
       <AddContactsInput
         type="tel"
-        name="number"
-        id="number"
-        value={number}
+        name="phone"
+        value={phone}
         onChange={handleChange}
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
@@ -65,14 +68,4 @@ export const ContactsForm = () => {
       <Button type="submit">Add contact</Button>
     </AddContactsFormContainer>
   );
-};
-
-ContactsForm.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
 };
