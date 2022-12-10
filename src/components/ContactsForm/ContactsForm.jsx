@@ -65,7 +65,15 @@ export const ContactsForm = () => {
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
       />
-      <Button type="submit">Add contact</Button>
+      <Button type="submit">
+        <p>Add</p>
+        <img
+          src="https://img.icons8.com/windows/32/null/filled-plus-2-math.png"
+          alt="plus"
+          width="50"
+          height="50"
+        />
+      </Button>
     </AddContactsFormContainer>
   );
 };

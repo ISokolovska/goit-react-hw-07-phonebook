@@ -18,17 +18,22 @@ export const App = () => {
   return (
     <div
       style={{
-        height: '100vh',
+        width: '900px',
+        margin: '0 auto',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 40,
-        color: '#010101',
+        color: 'black',
+        backgroundColor: '#bcbabe',
+        border: '5px solid #003b46',
+        borderRadius: 50,
       }}
     >
       <h1>Phonebook</h1>
       <ContactsForm />
+
       {isLoading && !error && <b>Request in progress...</b>}
       <h2>Contacts</h2>
       <Filter />
