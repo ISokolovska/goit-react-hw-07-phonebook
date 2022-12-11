@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/operations';
 import { getContacts, getFilter } from 'redux/selectors';
 import { Button } from '../ContactsForm/Styled';
-import { Contact, ContactsWrapper } from './Styled';
+import { Contact, ContactsItem, ContactsWrapper } from './Styled';
 
 export const ContactsList = () => {
   const contacts = useSelector(getContacts);
@@ -22,7 +22,7 @@ export const ContactsList = () => {
     <ContactsWrapper className="contacts-list">
       {filteredContacts.map(contact => {
         return (
-          <li key={contact.id}>
+          <ContactsItem key={contact.id}>
             <Contact>
               {contact.name}: {contact.phone}
             </Contact>
@@ -32,7 +32,7 @@ export const ContactsList = () => {
             >
               Delete
             </Button>
-          </li>
+          </ContactsItem>
         );
       })}
     </ContactsWrapper>

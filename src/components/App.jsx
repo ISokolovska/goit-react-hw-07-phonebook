@@ -5,6 +5,7 @@ import { getError, getIsLoading } from 'redux/selectors';
 import { ContactsForm } from './ContactsForm/ContactsForm';
 import { ContactsList } from './ContactsList/ContactsList';
 import { Filter } from './Filter/Filter';
+import { TitleContacts } from './Styled';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export const App = () => {
         alignItems: 'center',
         fontSize: 40,
         color: 'black',
-        backgroundColor: '#bcbabe',
+        backgroundColor: '#896e69',
         border: '5px solid #003b46',
         borderRadius: 50,
       }}
@@ -35,7 +36,7 @@ export const App = () => {
       <ContactsForm />
 
       {isLoading && !error && <b>Request in progress...</b>}
-      <h2>Contacts</h2>
+      <TitleContacts>Contacts</TitleContacts>
       <Filter />
       <ContactsList />
     </div>

@@ -3,7 +3,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
-import { AddContactsFormContainer, AddContactsInput, Button } from './Styled';
+import {
+  AddContactsFormContainer,
+  AddContactsInput,
+  Button,
+  ButtonText,
+  Formlabel,
+} from './Styled';
 
 export const ContactsForm = () => {
   const [name, setName] = useState('');
@@ -44,7 +50,7 @@ export const ContactsForm = () => {
 
   return (
     <AddContactsFormContainer onSubmit={handleSubmit}>
-      <label>Name</label>
+      <Formlabel>Name</Formlabel>
       <AddContactsInput
         type="text"
         name="name"
@@ -55,7 +61,7 @@ export const ContactsForm = () => {
         required
       />
 
-      <label htmlFor="phone">Phone</label>
+      <Formlabel htmlFor="phone">Phone</Formlabel>
       <AddContactsInput
         type="tel"
         name="phone"
@@ -66,13 +72,7 @@ export const ContactsForm = () => {
         required
       />
       <Button type="submit">
-        <p>Add</p>
-        <img
-          src="https://img.icons8.com/windows/32/null/filled-plus-2-math.png"
-          alt="plus"
-          width="50"
-          height="50"
-        />
+        <ButtonText>Add</ButtonText>
       </Button>
     </AddContactsFormContainer>
   );

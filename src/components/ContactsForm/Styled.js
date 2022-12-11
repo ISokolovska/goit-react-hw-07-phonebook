@@ -3,8 +3,7 @@ import styled from 'styled-components';
 export const AddContactsFormContainer = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
+  /* justify-content: center; */
 `;
 
 export const AddContactsInput = styled.input`
@@ -19,18 +18,26 @@ export const AddContactsInput = styled.input`
 
 export const Button = styled.button`
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 100%;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 10px;
-  font-size: 25px;
+  width: 150px;
+  margin: 0;
+  padding: 20px 25px;
+  font-size: 35px;
   font-weight: 400;
   border-radius: 50px;
-  background-color: #1995ad;
+  background-color: #d55448;
   color: black;
   &:hover {
-    background-color: #a1d6e2;
+    background-color: #ffa577;
   }
+`;
+
+export const ButtonText = styled.p`
+  margin: 0;
+`;
+
+export const Formlabel = styled.label`
+  text-align: left;
+  font-size: 35px;
+  font-weight: 400;
 `;

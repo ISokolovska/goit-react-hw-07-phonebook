@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterContact } from 'redux/contactsSlice';
 import { getFilter } from 'redux/selectors';
-import { FilterContacts } from './Styled';
+import { FilterContacts, FilterText } from './Styled';
 
 export const Filter = () => {
   const filter = useSelector(getFilter);
@@ -15,7 +15,7 @@ export const Filter = () => {
 
   return (
     <label htmlFor="filter">
-      <p>Find contacts by name</p>
+      <FilterText>Find contacts by name</FilterText>
       <FilterContacts
         type="text"
         id="filter"
